@@ -63,8 +63,10 @@ public class BlogService {
         Optional<Blog> existBlog = blogs.stream().filter(x -> x.getId() == id).findFirst();
         return existBlog.map(it -> {
             it.setTitle(blog.getTitle());
-            it.setContent(blog.getContent());
             it.setDescription(blog.getDescription());
+            it.setContent(blog.getContent());
+            it.setCategory(blog.getCategory());
+            it.setTags(blog.getTags());
             it.setUpdatedDate(LocalDateTime.now());
             writeToFile();
             return it;

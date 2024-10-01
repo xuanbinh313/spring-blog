@@ -10,6 +10,8 @@ public class Blog {
     private String title;
     private String description;
     private String content;
+    private String category;
+    private String[] tags;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
@@ -22,12 +24,15 @@ public class Blog {
             String title,
             String description,
             String content,
+            String category,
+            String[] tags,
             LocalDateTime createdDate,
             LocalDateTime updatedDate) {
         this.Id = Id;
         this.title = title;
         this.description = description;
         this.content = content;
+        this.tags = tags;
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
     }
@@ -78,6 +83,22 @@ public class Blog {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 }
