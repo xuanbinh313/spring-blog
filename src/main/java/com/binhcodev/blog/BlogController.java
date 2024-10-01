@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,13 +21,13 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
-    @GetMapping
-    public List<Blog> getAllBlogs(String search) {
-        return blogService.getAllBlogs(search);
+    @GetMapping()
+    public List<Blog> getAllBlogs(@RequestParam(required = false) String term ) {
+        return blogService.getAllBlogs(term);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Blog> getOneBlog(@PathVariable int id) {
+    public ResponseEntity<Blog> getOneBlog(@PathVariable Long id) {
         return blogService.getOneBlog(id).map(it -> new ResponseEntity<>(it, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -38,19 +39,16 @@ public class BlogController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Blog> updateBlog(@PathVariable int id, @RequestBody Blog entity) {
+    public ResponseEntity<Blog> updateBlog(@PathVariable Long id, @RequestBody Blog entity) {
         return blogService.updateBlog(id, entity).map(post -> new ResponseEntity<>(post, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBlog(@PathVariable int id) {
-        boolean deleted = blogService.deleteBlog(id);
-        if(deleted){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> deleteBlog(@PathVariable Long id) {
+       blogService.deleteBlog(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
