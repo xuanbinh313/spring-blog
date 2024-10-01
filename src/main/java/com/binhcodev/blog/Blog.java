@@ -6,14 +6,25 @@ import java.time.LocalDateTime;
  * Blog
  */
 public class Blog {
+    private int Id;
     private String title;
     private String description;
     private String content;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public Blog(String title, String description, String content, LocalDateTime createdDate,
+    public Blog() {
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = LocalDateTime.now();
+    }
+
+    public Blog(int Id,
+            String title,
+            String description,
+            String content,
+            LocalDateTime createdDate,
             LocalDateTime updatedDate) {
+        this.Id = Id;
         this.title = title;
         this.description = description;
         this.content = content;
@@ -59,6 +70,14 @@ public class Blog {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
 }
